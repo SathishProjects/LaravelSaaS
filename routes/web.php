@@ -19,10 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/createdb', 'Auth\RegisterController@createDatabase');
+Route::get('/createdb', 'HomeController@createDatabase')->name('createdb');
 
 Route::group(['middleware' => ['tenant']], function () {
-    Route::get('/migrate', 'Auth\RegisterController@migrateDatabase');
+
+    Route::get('/migrate', 'HomeController@migrateDatabase')->name('migratedb');
 });
 
 Route::group(['middleware' => ['web']], function () {

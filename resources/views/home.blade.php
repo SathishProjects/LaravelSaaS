@@ -9,12 +9,33 @@
 
                 <div class="panel-body">
                     @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
+                        <div class="alert alert-{{ session('status') }}">
+                            {{ session('message') }}
                         </div>
                     @endif
 
-                    You are logged in!
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                            <div class="panel-heading">Initial Setup</div>
+                            <div class="panel-body">
+                                <p>
+                                    <a href="{{ route('createdb') }}">Create Fresh DB</a>
+                                </p>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                            <div class="panel-heading">Initial Setup</div>
+                            <div class="panel-body">
+                                <p>
+                                    <a href="{{ route('migratedb') }}">Migrate DB</a>
+                                </p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

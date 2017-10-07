@@ -32,11 +32,7 @@ class Tenant {
      */
     public function handle($request, Closure $next) {
         
-        if (($request->session()->get('tenant')) === null){
-            // return redirect()->route('home')->withErrors(['error' => 'Tenant db not connected']);
-        }
-        
-        $user = User::find(1);
+        $user = auth()->user();
 
         $this->reconnect($user);
 

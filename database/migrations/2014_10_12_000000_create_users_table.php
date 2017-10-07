@@ -21,9 +21,9 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('mysql_host',64)->default('127.0.0.1');
-            $table->string('mysql_database',64);
+            $table->string('mysql_database',64)->nullable();
             $table->string('mysql_username',64)->default('root');
-            $table->string('mysql_password',64);
+            $table->string('mysql_password',64)->nullable();
         });
     }
 

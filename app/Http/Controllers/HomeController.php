@@ -25,4 +25,43 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function createDatabase(){
+
+        $user = auth()->user();
+
+        $dbName = 'tenant_'.$user->name;
+
+        try {
+
+            \Artisan::call('make:database', ['name' => $dbName]);
+            
+            $user->mysql_database = $dbName;
+            $user->mysql_host = env('DB_HOST', '127.0.0.1');
+            $user->mysql_username = env('DB_USERNAME', '');
+            $user->mysql_password = env('DB_PASSWORD', '');
+            $user->save();
+
+            return redirect()->back()->withStatus('success')->withMessage($dbName.' - Created successfully');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withStatus('danger')->withMessage('Database creation failed');
+        }
+
+    }
+
+    public function migrateDatabase(){
+
+        try {
+
+            \Artisan::call('migrate:fresh', ['--database' => 'tenant','--path' => 'database/migrations/tenants']);
+            \Artisan::call('db:seed', ['--class' => 'TenantDatabaseSeeder']);
+
+            return redirect()->back()->withStatus('success')->withMessage('Tables Migrated successfully');
+            
+        } catch (\Exception $e) {
+            return redirect()->back()->withStatus('danger')->withMessage('Tables Migration failed');
+        }
+
+    }
 }
