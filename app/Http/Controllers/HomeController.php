@@ -42,7 +42,7 @@ class HomeController extends Controller
             $user->mysql_password = env('DB_PASSWORD', '');
             $user->save();
 
-            return redirect()->back()->withStatus('success')->withMessage($dbName.' - Created successfully');
+            return redirect()->route('migratedb');
 
         } catch (\Exception $e) {
             return redirect()->back()->withStatus('danger')->withMessage('Database creation failed');
@@ -57,10 +57,10 @@ class HomeController extends Controller
             \Artisan::call('migrate:fresh', ['--database' => 'tenant','--path' => 'database/migrations/tenants']);
             \Artisan::call('db:seed', ['--class' => 'TenantDatabaseSeeder']);
 
-            return redirect()->back()->withStatus('success')->withMessage('Tables Migrated successfully');
+            return redirect()->back()->withStatus('success')->withMessage('Database migrated successfully');
             
         } catch (\Exception $e) {
-            return redirect()->back()->withStatus('danger')->withMessage('Tables Migration failed');
+            return redirect()->back()->withStatus('danger')->withMessage('Database migration failed');
         }
 
     }

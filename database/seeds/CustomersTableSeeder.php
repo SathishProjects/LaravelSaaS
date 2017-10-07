@@ -12,10 +12,6 @@ class CustomersTableSeeder extends Seeder
      */
     public function run()
     {
-        Customer::create([
-            'name' => str_random(10),
-            'email' => str_random(10).'@gmail.com',
-            'password' => bcrypt('admin123')
-        ]);
+        
     }
 }

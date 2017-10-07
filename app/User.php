@@ -11,6 +11,7 @@ class User extends Authenticatable
     use Notifiable, TenantConnector;
        
     protected $connection = 'main';
+    
     /**
      * @return $this
      */
