@@ -30,7 +30,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        $dbName = 'tenant_'.$user->name;
+        $dbName = env('DB_DATABASE','').'_tenant_'.$user->id;
 
         try {
 

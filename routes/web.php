@@ -32,6 +32,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('admin/login', ['as'=>'admin.auth','uses'=>'Auth\AdminLoginController@adminAuth']);
     Route::post('admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 
+    Route::get('admin/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm');
+	Route::post('admin/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.email');
+	Route::get('admin/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm');
+	Route::post('admin/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.reset');
+
     Route::group(['middleware' => ['admin']], function () {
     	Route::get('admin/dashboard', ['as'=>'admin.dashboard','uses'=>'Admin\HomeController@dashboard']);
     });
